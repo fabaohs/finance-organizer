@@ -1,0 +1,13 @@
+{
+  "name": "finance-organizer",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "dev:web": "turbo run dev --filter=@finance-organizer/web",
+    "dev:server": "turbo run dev --filter=@finance-organizer/server"
+  },
+  "devDependencies": {
+    "turbo": "^2.4.0"
+  }
+}
