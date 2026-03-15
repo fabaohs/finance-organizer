@@ -19,7 +19,11 @@ export async function createApp(): Promise<AppBootstrap> {
   const db = await createDbConnection(logger);
 
   app.get("/api/health", async () => {
-    return { status: "ok" };
+    try {
+      return { status: "ok" };
+    } catch (error) {
+      return { status: "error" };
+    }
   });
 
   return { app, logger, db };

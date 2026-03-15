@@ -1,5 +1,5 @@
 ﻿services:
-  db:
+  finance-organizer-db:
     image: postgres:16
     environment:
       POSTGRES_USER: root
