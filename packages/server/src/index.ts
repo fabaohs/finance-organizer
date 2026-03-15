@@ -1,16 +1,6 @@
-import Fastify from "fastify";
-import cors from "@fastify/cors";
-import { loggerFactory } from "./main/logger-factory";
+import { createApp } from "./main/bootstrap.js";
 
-const app = Fastify({ logger: true });
-
-await app.register(cors, { origin: true });
-
-const logger = loggerFactory(app.log);
-
-app.get("/api/health", async () => {
-  return { status: "ok" };
-});
+const { app, logger } = await createApp();
 
 app.listen({ port: 3001 }, (err) => {
   if (err) {
@@ -18,5 +8,3 @@ app.listen({ port: 3001 }, (err) => {
     process.exit(1);
   }
 });
-
-export { logger };

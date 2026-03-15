@@ -1,9 +1,9 @@
-﻿import "dotenv/config";
-import { drizzle } from "drizzle-orm/node-postgres";
+﻿import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import { ILogger } from "../logger/types";
+import ENV from "../env";
 
-const databaseUrl = process.env.DATABASE_URL!;
+const databaseUrl = ENV.DATABASE_URL;
 let dbInstance: ReturnType<typeof drizzle> | null = null;
 
 export default async function createDbConnection(logger: ILogger) {
@@ -14,18 +14,18 @@ export default async function createDbConnection(logger: ILogger) {
 
   const pool = new Pool({ connectionString: databaseUrl });
 
-  pool.on("error", (err) =>
-    logger.error("[DB] Erro ao conectar ao banco de dados", err),
+  pool.on("error", (error) =>
+    logger.error("[DB] Erro ao conectar ao banco de dados", { error }),
   );
 
   try {
     const client = await pool.connect();
     client.release();
     logger.info("[db] Connected successfully");
-  } catch (err) {
-    logger.error("[db] Connection failed:", err);
+  } catch (error) {
+    logger.error("[db] Connection failed:", { error });
     await pool.end();
-    throw err;
+    throw error;
   }
 
   dbInstance = drizzle(pool);
