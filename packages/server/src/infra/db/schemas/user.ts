@@ -1,4 +1,4 @@
-﻿import {
+import {
   index,
   integer,
   pgTable,
@@ -6,7 +6,7 @@
   varchar,
 } from "drizzle-orm/pg-core";
 
-const userSchema = pgTable(
+export const users = pgTable(
   "users",
   {
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -20,4 +20,4 @@ const userSchema = pgTable(
   (table) => [index("idx_user_email").on(table.email)],
 );
 
-export default userSchema;
+export default users;

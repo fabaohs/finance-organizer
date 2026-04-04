@@ -7,7 +7,7 @@
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
-import { ExpenseTypeEnum } from "../../../domain/entities/expense.entity";
+import { ExpenseTypeEnum } from "../../../domain/entities/expense";
 
 export const expenseType = pgEnum("expense_type", [
   ExpenseTypeEnum.FIXED,
